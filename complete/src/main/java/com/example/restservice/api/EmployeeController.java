@@ -10,31 +10,40 @@ import java.util.List;
 @RestController
 public class EmployeeController {
 
+    EmployeeService employeeService = new EmployeeService();
+
     //GET
     @GetMapping("/employee")
     public List<Employee> getAllEmployee(){
-        EmployeeService service = new EmployeeService();
-        return service.getAllEmployee();
+        return employeeService.getAllEmployee();
     }
 
     @GetMapping("/employee/{id}")
     public Employee getEmployeeById(@PathVariable int id){
-        EmployeeService service = new EmployeeService();
-        List<Employee> employees = service.getAllEmployee();
-        //return employees.stream().filter(employee -> employee.getId() == id).findFirst().get();
-        for (Employee emp : employees) {
-            if (emp.getId() == id) {
-                return emp;
-            }
-        }
-        return null;
+        return employeeService.getEmployeeById(id);
+    }
+
+    @GetMapping("/employee/{fName}")
+    public Employee getEmployeeByfName(@PathVariable int fName){
+        return employeeService.getEmployeeById(fName);
     }
 
     //POST
     @PostMapping("/employee")
     public Employee addEmployee(@RequestBody Employee employee) {
-        EmployeeService service = new EmployeeService();
-        service.addEmployee(employee);
+        employeeService.addEmployee(employee);
         return employee;
+    }
+
+    //Update
+    @PutMapping("/employee/{id}")
+    public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employee){
+        employeeService.updateEmployee(id, employee);
+        return employee;
+    }
+
+    @DeleteMapping("/employee/{id}")
+    public void deleteEmployee(@PathVariable int id){
+        employeeService.deleteEmployee(id);
     }
 }

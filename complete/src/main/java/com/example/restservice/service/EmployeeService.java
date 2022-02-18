@@ -20,7 +20,42 @@ public class EmployeeService {
         return employees;
     }
 
+    public Employee getEmployeeById(int id){
+        /* return employees.stream().filter(employee -> employee.getId() == id).findFirst().get(); */
+        for (Employee emp : employees) {
+            if (emp.getId() == id) {
+                return emp;
+            }
+        }
+        return null;
+    }
+
+    public Employee getEmployeeByfName(String fName){
+        for (Employee emp : employees) {
+            if (emp.getFname().equals(fName)) {
+                return emp;
+            }
+        }
+        return null;
+    }
+
     public void addEmployee(Employee employee){
         employees.add(employee);
     }
+
+    public void updateEmployee(int id, Employee employee){
+        //find employee and update it
+        Employee fetchedEmp = this.getEmployeeById(id);
+        if (fetchedEmp != null) {
+            fetchedEmp = employee;
+        }
+    }
+
+    public void deleteEmployee(int id){
+        Employee fetchedEmp = this.getEmployeeById(id);
+        if (fetchedEmp != null) {
+            //delete employee
+        }
+    }
+
 }
